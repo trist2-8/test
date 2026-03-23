@@ -65,9 +65,7 @@ ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></texta
       </div>
 
       <div id="management-view" class="view hidden">
-        <div class="header-section">
-          <div class="header-row"><h1>Bộ từ của tôi</h1></div>
-        </div>
+        <div class="header-section"><div class="header-row"><h1>Bộ từ của tôi</h1></div></div>
         <div id="wordsetGrid" class="wordset-grid"></div>
       </div>
 
@@ -90,12 +88,29 @@ ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></texta
         </div>
 
         <div class="dashboard-body-section">
-          <div class="game-cards-grid">
-            <div class="game-card game-flashcard" data-game="flashcard">
-              <div class="game-icon">≡</div><h2>Flashcard</h2><p>Lật thẻ học từ vựng</p>
+          <div class="status-summary-row" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+             <span style="font-size: 18px; font-weight: bold;">Chọn game: ⚙️</span>
+             <button id="openStrategyBtn" class="primary-btn" style="background: linear-gradient(135deg, #a78bfa, #7c3aed); border: none; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);">🧠 Lộ trình & Khoa học ghi nhớ</button>
+          </div>
+          
+          <div class="vibrant-game-grid">
+            <div class="vibrant-card card-purple" data-game="flashcard">
+              <div class="v-icon">≡</div><h3>Flashcard</h3><p>Lật thẻ học từ vựng</p><span class="v-badge">+5 🟡</span>
             </div>
-            <div class="game-card game-quiz" data-game="quiz">
-              <div class="game-icon">☑️</div><h2>Trắc nghiệm</h2><p>Chọn đáp án đúng</p>
+            <div class="vibrant-card card-orange" data-game="quiz">
+              <div class="v-icon">☑️</div><h3>Trắc nghiệm</h3><p>Chọn đáp án đúng</p><span class="v-badge">+10 🟡</span>
+            </div>
+            <div class="vibrant-card card-blue" data-game="matching">
+              <div class="v-icon">⧉</div><h3>Nối từ với nghĩa</h3><p>Ghép đôi từ vựng v...</p><span class="v-badge">+10 🟡</span>
+            </div>
+            <div class="vibrant-card card-green" data-game="typing">
+              <div class="v-icon">T</div><h3>Gõ từ vựng</h3><p>Nhìn nghĩa và gõ t...</p><span class="v-badge">+10 🟡</span>
+            </div>
+            <div class="vibrant-card card-cyan" data-game="dictation">
+              <div class="v-icon">🎧</div><h3>Nghe viết</h3><p>Nghe phát âm và...</p><span class="v-badge">+15 🟡</span>
+            </div>
+            <div class="vibrant-card card-pink" data-game="srs">
+              <div class="v-icon">🔀</div><h3>Tổng hợp</h3><p>Hỗn hợp + Flappy..</p><span class="v-badge hot-badge">HOT 🔥</span><span class="v-badge" style="bottom: 15px; top: auto; left: 50%; transform: translateX(-50%);">+20 🟡</span>
             </div>
           </div>
         </div>
@@ -105,22 +120,13 @@ ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></texta
         <div class="header-section">
           <div class="header-row" style="justify-content: space-between;">
             <button class="exit-game-btn secondary-btn">← Thoát</button>
-            <h1 id="studySetName">Flashcard</h1>
-            <span id="studyProgress" class="progress-text">1 / 10</span>
+            <h1 id="studySetName">Flashcard</h1><span id="studyProgress" class="progress-text">1 / 10</span>
           </div>
         </div>
         <div class="flashcard-container">
           <div class="flashcard" id="activeFlashcard">
-            <div class="card-face front">
-              <h2 id="fcWord">Word</h2>
-              <p id="fcPhonetic" style="color: #8aaccf; font-family: monospace; font-size: 16px; margin: 5px 0;"></p>
-              <span class="fc-hint">Click để lật thẻ</span>
-            </div>
-            <div class="card-face back">
-              <h2 id="fcMeaning">Nghĩa</h2>
-              <p id="fcType" style="color: var(--primary-color); font-style: italic; margin: 5px 0;"></p>
-              <p id="fcExample" style="color: #fdfd96; font-size: 15px; margin-top: 15px;"></p>
-            </div>
+            <div class="card-face front"><h2 id="fcWord">Word</h2><p id="fcPhonetic" style="color: #8aaccf; font-family: monospace; font-size: 16px;"></p><span class="fc-hint">Click để lật thẻ</span></div>
+            <div class="card-face back"><h2 id="fcMeaning">Nghĩa</h2><p id="fcType" style="color: var(--primary-color); font-style: italic;"></p><p id="fcExample" style="color: #fdfd96; font-size: 15px; margin-top: 15px;"></p></div>
           </div>
         </div>
         <div class="study-controls">
@@ -131,16 +137,43 @@ ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></texta
 
       <div id="quiz-mode-view" class="view hidden">
         <div class="header-section">
-          <div class="header-row" style="justify-content: space-between;">
-            <button class="exit-game-btn secondary-btn">← Thoát</button>
-            <h1>Trắc nghiệm</h1>
-            <span id="quizProgress" class="progress-text">1 / 10</span>
-          </div>
+          <div class="header-row" style="justify-content: space-between;"><button class="exit-game-btn secondary-btn">← Thoát</button><h1>Trắc nghiệm</h1><span id="quizProgress" class="progress-text">1 / 10</span></div>
         </div>
         <div class="quiz-container">
           <div class="quiz-question-box"><h2 id="quizQuestionWord">Word</h2></div>
-          <div class="quiz-options-grid" id="quizOptionsGrid">
-            </div>
+          <div class="quiz-options-grid" id="quizOptionsGrid"></div>
+        </div>
+      </div>
+
+      <div id="matching-mode-view" class="view hidden">
+         <div class="header-section">
+          <div class="header-row" style="justify-content: space-between;"><button class="exit-game-btn secondary-btn">← Thoát</button><h1>Nối từ với nghĩa</h1><span id="matchingProgress" class="progress-text"></span></div>
+        </div>
+        <div class="matching-container" id="matchingGrid"></div>
+      </div>
+
+      <div id="typing-mode-view" class="view hidden">
+         <div class="header-section">
+          <div class="header-row" style="justify-content: space-between;"><button class="exit-game-btn secondary-btn">← Thoát</button><h1>Gõ từ vựng</h1><span id="typingProgress" class="progress-text">1 / 10</span></div>
+        </div>
+        <div class="typing-container">
+          <div class="typing-meaning-box"><h2 id="typingQuestionMeaning">Nghĩa của từ</h2></div>
+          <input type="text" id="typingInput" class="game-input" placeholder="Gõ từ vựng tiếng Anh vào đây..." autocomplete="off">
+          <button id="typingSubmitBtn" class="primary-btn" style="width: 100%; margin-top: 15px; padding: 15px; font-size: 18px;">Kiểm tra</button>
+        </div>
+      </div>
+
+      <div id="dictation-mode-view" class="view hidden">
+         <div class="header-section">
+          <div class="header-row" style="justify-content: space-between;"><button class="exit-game-btn secondary-btn">← Thoát</button><h1>Nghe viết</h1><span id="dictationProgress" class="progress-text">1 / 10</span></div>
+        </div>
+        <div class="typing-container">
+          <div class="audio-box" id="playAudioBtn">
+            <span style="font-size: 60px;">🔊</span>
+            <p>Click để nghe lại</p>
+          </div>
+          <input type="text" id="dictationInput" class="game-input" placeholder="Gõ từ bạn nghe được..." autocomplete="off">
+          <button id="dictationSubmitBtn" class="primary-btn" style="width: 100%; margin-top: 15px; padding: 15px; font-size: 18px;">Kiểm tra</button>
         </div>
       </div>
 
@@ -152,8 +185,7 @@ ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></texta
 
   <div id="quickAddModal" class="modal hidden">
     <div class="modal-content quick-add-content">
-      <span class="close-modal">&times;</span>
-      <h2>⚡ Thêm Nhanh (1 Từ)</h2>
+      <span class="close-modal">&times;</span><h2>⚡ Thêm Nhanh (1 Từ)</h2>
       <input type="text" id="quickWord" placeholder="Từ vựng (VD: Hello)" class="modern-input">
       <input type="text" id="quickMeaning" placeholder="Nghĩa (VD: Xin chào)" class="modern-input">
       <button id="saveQuickWordBtn" class="primary-btn" style="width: 100%; margin-top: 15px;">Lưu Từ Này</button>
@@ -162,11 +194,64 @@ ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></texta
 
   <div id="tutorialModal" class="modal hidden">
     <div class="modal-content tutorial-modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>📖 Hướng dẫn thêm từ</h2>
+      <span class="close-modal">&times;</span><h2>📖 Hướng dẫn thêm từ</h2>
       <p><b>1. Dạng đầy đủ:</b> Gõ theo dạng <code>từ | phiên âm | loại từ | nghĩa | ví dụ | ghi chú</code></p>
       <p><b>2. Dạng nhanh:</b> Gõ theo dạng <code>từ | nghĩa</code> (Hệ thống sẽ tự hiểu)</p>
       <p><b>3. Từ Excel:</b> Bôi đen các cột trong Excel, nhấn Ctrl+C, click vào ô trống trong ứng dụng và nhấn Ctrl+V.</p>
+    </div>
+  </div>
+
+  <div id="strategyModal" class="modal hidden">
+    <div class="modal-content strategy-modal-content" style="width: 700px; max-height: 85vh; overflow-y: auto;">
+      <span class="close-modal">&times;</span>
+      <h2 style="color: var(--game-flashcard-purple); border-bottom: none; margin-bottom: 5px;">🧠 Lộ Trình Học Tập Khoa Học</h2>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 25px;">Áp dụng khoa học nhận thức vào 5 trò chơi để ghi nhớ từ vựng vĩnh viễn.</p>
+      
+      <div class="strategy-step">
+        <div class="step-icon" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">1</div>
+        <div class="step-info">
+          <h3 style="color: #a78bfa;">Làm quen: Flashcard (Active Recall)</h3>
+          <p><b>Mục đích:</b> Đưa từ vựng mới vào trí nhớ ngắn hạn.</p>
+          <p><b>Khoa học:</b> Ép bộ não tự nhớ lại ý nghĩa mà không có gợi ý (Active Recall) giúp tạo liên kết thần kinh mạnh nhất. Hãy trung thực đánh giá độ thuộc của mình!</p>
+        </div>
+      </div>
+
+      <div class="strategy-step">
+        <div class="step-icon" style="background: linear-gradient(135deg, #fb923c, #ea580c);">2</div>
+        <div class="step-info">
+          <h3 style="color: #fb923c;">Xác nhận: Trắc nghiệm (Recognition)</h3>
+          <p><b>Mục đích:</b> Nhận diện từ vựng thụ động.</p>
+          <p><b>Khoa học:</b> Giúp củng cố sự tự tin bằng cách phân biệt từ đúng với các đáp án gây nhiễu, luyện khả năng đọc hiểu nhanh khi nhìn thấy từ trong văn bản.</p>
+        </div>
+      </div>
+
+      <div class="strategy-step">
+        <div class="step-icon" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">3</div>
+        <div class="step-info">
+          <h3 style="color: #38bdf8;">Tăng tốc: Nối từ (Automaticity)</h3>
+          <p><b>Mục đích:</b> Phản xạ tự nhiên, không cần dịch thầm trong đầu.</p>
+          <p><b>Khoa học:</b> Game tốc độ giúp xây dựng "Automaticity" - khả năng xử lý thông tin tự động của não bộ, cực kỳ quan trọng để tăng tốc độ Đọc (Reading).</p>
+        </div>
+      </div>
+
+      <div class="strategy-step">
+        <div class="step-icon" style="background: linear-gradient(135deg, #a3e635, #65a30d);">4</div>
+        <div class="step-info">
+          <h3 style="color: #a3e635;">Sử dụng: Gõ từ vựng (Productive Recall)</h3>
+          <p><b>Mục đích:</b> Chuyển hóa thành từ vựng chủ động (Active Vocabulary).</p>
+          <p><b>Khoa học:</b> Trí nhớ vận động (Kinesthetic memory) từ việc gõ phím giúp khắc sâu cách viết. Dùng game này khi bạn cần luyện kỹ năng Viết (Writing).</p>
+        </div>
+      </div>
+
+      <div class="strategy-step">
+        <div class="step-icon" style="background: linear-gradient(135deg, #22d3ee, #0891b2);">5</div>
+        <div class="step-info">
+          <h3 style="color: #22d3ee;">Hoàn thiện: Nghe viết (Phonological Loop)</h3>
+          <p><b>Mục đích:</b> Nắm vững phát âm và rèn kỹ năng Nghe (Listening).</p>
+          <p><b>Khoa học:</b> Kích hoạt "Vòng lặp âm vị học" của não, giúp bạn không chỉ nhận diện mặt chữ mà còn phản xạ tức thì với âm thanh của người bản xứ.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
