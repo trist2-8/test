@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Vocab Master Pro",
+  "version": "1.2",
+  "description": "Store, manage, and study vocabulary with an elegant dark interface.",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open Vocab Pro"
+  }
+}

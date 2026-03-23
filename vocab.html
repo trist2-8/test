@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Vocab Master Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  
+  <div id="main-container">
+    <nav class="main-nav">
+      <div class="nav-brand">Vocab Master Pro</div>
+      <div class="nav-links">
+        <button id="navMainBtn" class="nav-btn active">Thêm Từ</button>
+        <button id="navManagementBtn" class="nav-btn">Bộ Từ Của Tôi</button>
+        <button id="navReviewBtn" class="nav-btn">Lộ Trình / Ôn Tập</button>
+      </div>
+    </nav>
+
+    <main id="content-area">
+      <div id="main-view" class="view">
+        <div class="header-section">
+          <div class="header-row">
+            <h1>Thêm vào bộ từ:</h1>
+            <select id="wordsetDropdown"></select>
+            <button id="addSetBtn" class="secondary-btn">+</button>
+          </div>
+        </div>
+
+        <div id="input-view">
+          <div class="input-header">
+            <div class="help-box">
+              <h2>Định dạng: mỗi dòng 1 từ, cột cách bằng |</h2>
+              <p class="format-hint">từ vựng | /phiên âm/ | loại từ | nghĩa | ví dụ | ghi chú</p>
+              <p class="quick-add-hint">(Hệ thống hỗ trợ tự động nhận diện nếu bạn chỉ nhập Từ | Nghĩa)</p>
+            </div>
+            <div class="action-buttons">
+              <div class="dropdown-wrapper">
+                  <button class="secondary-btn dropdown-toggle">Nhập file CSV ▼</button>
+                  <div class="dropdown-menu hidden">
+                      <button class="dropdown-item" id="importCsvBtn">Chọn file .CSV</button>
+                  </div>
+              </div>
+              <button class="secondary-btn" id="tutorialBtn">Hướng dẫn</button>
+              <button class="primary-btn" id="quickAddBtn">⚡ Thêm Nhanh</button>
+            </div>
+          </div>
+          
+          <textarea id="bulkInput" placeholder="abandon | /ə'bæn.dən/ | verb | từ bỏ | She abandoned her car | thường dùng trong văn viết
+ability | /ə'bıl.ə.ti/ | noun | khả năng | He has great ability |"></textarea>
+          
+          <div class="footer-actions">
+            <button id="previewBtn" class="primary-btn">Kiểm tra & Sửa</button>
+          </div>
+        </div>
+
+        <div id="preview-view" class="hidden">
+          <div class="preview-header"><h2>Kiểm tra và sửa trước khi lưu</h2></div>
+          <div id="previewTableContainer"></div>
+          <div class="footer-actions footer-sticky">
+            <button id="cancelPreviewBtn" class="secondary-btn">Hủy</button>
+            <button id="saveWordsBtn" class="primary-btn">Lưu 0 từ</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="management-view" class="view hidden">
+        <div class="header-section">
+          <div class="header-row"><h1>Bộ từ của tôi</h1></div>
+        </div>
+        <div id="wordsetGrid" class="wordset-grid"></div>
+      </div>
+
+      <div id="set-details-view" class="view hidden">
+        <div class="header-section">
+          <div class="header-row">
+            <button id="backToManagementBtn" class="secondary-btn">← Quay lại</button>
+            <h1 id="detailsSetName">Tên bộ từ</h1>
+          </div>
+        </div>
+        <div id="setDetailsTableContainer"></div>
+      </div>
+
+      <div id="review-dashboard-view" class="view hidden">
+        <div class="filter-row-section">
+          <div class="filter-box">
+            <label>Bộ từ vựng</label>
+            <select id="reviewSetDropdown"><option value="all">Tất cả bộ từ</option></select>
+          </div>
+        </div>
+
+        <div class="dashboard-body-section">
+          <div class="game-cards-grid">
+            <div class="game-card game-flashcard" data-game="flashcard">
+              <div class="game-icon">≡</div><h2>Flashcard</h2><p>Lật thẻ học từ vựng</p>
+            </div>
+            <div class="game-card game-quiz" data-game="quiz">
+              <div class="game-icon">☑️</div><h2>Trắc nghiệm</h2><p>Chọn đáp án đúng</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="study-mode-view" class="view hidden">
+        <div class="header-section">
+          <div class="header-row" style="justify-content: space-between;">
+            <button class="exit-game-btn secondary-btn">← Thoát</button>
+            <h1 id="studySetName">Flashcard</h1>
+            <span id="studyProgress" class="progress-text">1 / 10</span>
+          </div>
+        </div>
+        <div class="flashcard-container">
+          <div class="flashcard" id="activeFlashcard">
+            <div class="card-face front">
+              <h2 id="fcWord">Word</h2>
+              <p id="fcPhonetic" style="color: #8aaccf; font-family: monospace; font-size: 16px; margin: 5px 0;"></p>
+              <span class="fc-hint">Click để lật thẻ</span>
+            </div>
+            <div class="card-face back">
+              <h2 id="fcMeaning">Nghĩa</h2>
+              <p id="fcType" style="color: var(--primary-color); font-style: italic; margin: 5px 0;"></p>
+              <p id="fcExample" style="color: #fdfd96; font-size: 15px; margin-top: 15px;"></p>
+            </div>
+          </div>
+        </div>
+        <div class="study-controls">
+          <button id="btnNotLearned" class="study-btn btn-wrong">❌ Chưa thuộc</button>
+          <button id="btnLearned" class="study-btn btn-correct">✅ Đã thuộc</button>
+        </div>
+      </div>
+
+      <div id="quiz-mode-view" class="view hidden">
+        <div class="header-section">
+          <div class="header-row" style="justify-content: space-between;">
+            <button class="exit-game-btn secondary-btn">← Thoát</button>
+            <h1>Trắc nghiệm</h1>
+            <span id="quizProgress" class="progress-text">1 / 10</span>
+          </div>
+        </div>
+        <div class="quiz-container">
+          <div class="quiz-question-box"><h2 id="quizQuestionWord">Word</h2></div>
+          <div class="quiz-options-grid" id="quizOptionsGrid">
+            </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <input type="file" id="fileInputCsv" accept=".csv" class="hidden">
+  <div id="toastNotification" class="toast hidden">Thông báo</div>
+
+  <div id="quickAddModal" class="modal hidden">
+    <div class="modal-content quick-add-content">
+      <span class="close-modal">&times;</span>
+      <h2>⚡ Thêm Nhanh (1 Từ)</h2>
+      <input type="text" id="quickWord" placeholder="Từ vựng (VD: Hello)" class="modern-input">
+      <input type="text" id="quickMeaning" placeholder="Nghĩa (VD: Xin chào)" class="modern-input">
+      <button id="saveQuickWordBtn" class="primary-btn" style="width: 100%; margin-top: 15px;">Lưu Từ Này</button>
+    </div>
+  </div>
+
+  <div id="tutorialModal" class="modal hidden">
+    <div class="modal-content tutorial-modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>📖 Hướng dẫn thêm từ</h2>
+      <p><b>1. Dạng đầy đủ:</b> Gõ theo dạng <code>từ | phiên âm | loại từ | nghĩa | ví dụ | ghi chú</code></p>
+      <p><b>2. Dạng nhanh:</b> Gõ theo dạng <code>từ | nghĩa</code> (Hệ thống sẽ tự hiểu)</p>
+      <p><b>3. Từ Excel:</b> Bôi đen các cột trong Excel, nhấn Ctrl+C, click vào ô trống trong ứng dụng và nhấn Ctrl+V.</p>
+    </div>
+  </div>
+
+  <script src="vocab.js"></script>
+</body>
+</html>
